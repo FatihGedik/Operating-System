@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #define LINE_MAX 1024
 
+// we have defined variable below
+char preemptivemood='P'; // Preemptive Mod variable that keep A or P
 
 
 // this is main function 
@@ -53,9 +55,9 @@ void mainmenu(void) // we have created this function for print out main function
             printf(" Non-preemptive Mode Scheduling can be simulate. \n");
             break;			
 		}if(choise == '4'){
+			printf("4) The Results Are Showing Result\n");
 			break;			
-		}if(choise == '5'){
-			
+		}if(choise == '5'){			
             break;			
 		}else{
             
