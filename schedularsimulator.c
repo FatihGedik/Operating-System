@@ -200,7 +200,7 @@ void ReadData(void)
             row++;
             sscanf(line,"%d:%d:%d\n",&b,&a,&p);
             // push data to likend list
-            //data=insertBack(data,b,a,p,row);
+            data=insertBack(data,b,a,p,row);
             // print to screen
             printf("%u)    %u              %u             %u\n",row,b,a,p);
 
@@ -216,4 +216,50 @@ void ReadData(void)
 
 
 }
+
+bool isempty(struct node *data){
+    if(data==NULL)
+        return true;
+    else
+        return false;
+}
+
+struct result * initializeresult(struct result * times)
+{
+    times=(struct result*)malloc(sizeof(struct result*));
+    times->pid=0;
+    times->waiting=0;
+    times->responce=0;
+
+    return times;
+}
+
+struct node * createList(int b,int a,int p,int row)
+{
+    struct node * temp;
+    temp = (struct node *)malloc(sizeof(struct node));
+    temp->bursttime=b;
+    temp->arrivaltime=a;
+    temp->priority=p;
+    temp->pid=row;
+    temp->next=NULL;
+    return temp;
+}
+
+struct node * insertBack(struct node *data, int b,int a,int p,int row)
+{
+    struct node * temp = createList(b,a,p,row);
+    struct node * datatemp;
+    if (data == NULL)
+    {
+        data = temp;
+        return data;
+    }
+    datatemp=data;
+    while(datatemp->next != NULL)
+        datatemp=datatemp->next;
+    datatemp->next = temp;
+    return data;
+}
+
 
