@@ -5,12 +5,15 @@
 #include <stdbool.h>
 #define LINE_MAX 1024
 
+void Menu(void);
+void MethodMenu(void);
+
 // we have defined variable below
 char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
 // these definitions are defined for file manipulation
 char *inputfile="input.txt";  //input source
-void readdata(void); // the function defined function reads data from the input source
+void ReadData(void); // the function defined function reads data from the input source
 
 // there are three structure is defined for value manupýlation
 struct node
@@ -34,11 +37,21 @@ struct tempdata
 };
 struct tempdata *tempwaiting;
 
+
+bool is_empty(struct node *data);
+struct result * initializeresult(struct result * times);
+struct node * createNode(int b,int a,int p, int row);
+struct node * insertBack(struct node *data, int b,int a, int p,int row);
+struct node * deleteFront(struct node *data);
+int sizeofdata (struct node *data);
+void display (struct node *data);
+void displaytimes (struct result *times);
+
 // this is main function 
 int main(){	
 
-	readdata(); // the function is called for read data from input file
-	mainmenu(); // the called function brings menu to screen
+	
+	Menu(); // the called function brings menu to screen
 	
 	
 	
@@ -46,14 +59,16 @@ int main(){
 }
 
 
-void mainmenu(void) // we have created this function for print out main function
+void Menu(void) // we have created this function for print out main function
 {
-    
     char choise=' ';
     do
     {   char flag=' ';
         while(flag==' ') // we have use flag here to control while loop
         {
+        	
+        ReadData(); // the function is called for read data from input file
+
         printf("   Main Menu\n\n");
         printf("   Please, Choose Your Option\n");
         printf("1) Scheduling Method\n");
@@ -74,7 +89,7 @@ void mainmenu(void) // we have created this function for print out main function
         
         
         if(choise == '1'){        	
-			schedulemenu();        	
+			MethodMenu();        	
             break;
 		}if(choise == '2'){			
             PreemptiveMood='A';
@@ -103,7 +118,7 @@ void mainmenu(void) // we have created this function for print out main function
     while(choise!='5');
 }
 
-void schedulemenu(void)  // we have created this function for print out main function
+void MethodMenu(void)  // we have created this function for print out main function
 {
    
     char choise=' ';
@@ -111,6 +126,8 @@ void schedulemenu(void)  // we have created this function for print out main fun
     {   char flag=' ';
         while(flag==' ') // we have use flag here to control while loop
         {
+        ReadData(); // the function is called for read data from input file
+
         printf("   Scheduling Method Menu\n\n");
         printf("1) First Come First Served Scheduling\n");
         printf("2) Shortest Job First Scheduling\n");
@@ -139,7 +156,7 @@ void schedulemenu(void)  // we have created this function for print out main fun
             break;			
 		}if(choise == '5'){
 			printf("5) Back to Main Menu\n");
-			mainmenu(); 			
+			Menu(); 			
             break;			
 		}if(choise == '6'){			
 			printf("     The CPU Shedule Similator Closed. ");
@@ -158,7 +175,7 @@ void schedulemenu(void)  // we have created this function for print out main fun
 }
 
 // this function is wrote for that read data from input file
-void readdata(void)
+void ReadData(void)
 {
 	
 	
@@ -186,7 +203,6 @@ void readdata(void)
             //data=insertBack(data,b,a,p,row);
             // print to screen
             printf("%u)    %u              %u             %u\n",row,b,a,p);
-            //data=insertBack(data,b,a,p,row);
 
         }
 
