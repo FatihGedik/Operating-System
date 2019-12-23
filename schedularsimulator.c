@@ -6,7 +6,7 @@
 #define LINE_MAX 1024
 
 // we have defined variable below
-char preemptivemood='P'; // Preemptive Mod variable that keep A or P
+char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
 
 // this is main function 
@@ -40,32 +40,30 @@ void mainmenu(void) // we have created this function for print out main function
         system("cls");
         
         
-        if(choise == '1'){
-        	
+        if(choise == '1'){        	
 			schedulemenu();        	
             break;
-		}if(choise == '2'){
-			
-            printf(" Preemptive Mode is active now. \n");
+		}if(choise == '2'){			
+            PreemptiveMood='A';
+			printf(" Preemptive Mode is active now. \n");
             printf(" Preemptive Mode Scheduling can be simulate. \n");
+            sleep(2);
             break;			
 		}if(choise == '3'){
-			
+			PreemptiveMood='P';
             printf(" Non-preemptive Mode is active now. \n");
             printf(" Non-preemptive Mode Scheduling can be simulate. \n");
+            sleep(2);
             break;			
 		}if(choise == '4'){
 			printf("4) The Results Are Showing Result\n");
 			break;			
 		}if(choise == '5'){			
             break;			
-		}else{
-            
+		}else{            
             break;
-		}
-		
+		}		
         scanf("%c", &flag);
-
         }
 
     }
