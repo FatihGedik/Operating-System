@@ -8,11 +8,18 @@
 // we have defined variable below
 char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
+// these definitions are defined for file manipulation
+char *inputfile="input.txt";  //input source
+void readdata(void); // the function defined function reads data from the input source
+
 
 // this is main function 
 int main(){	
 
+	readdata();
 	mainmenu(); // the called function brings menu to screen
+	
+	
 	
 	return 0; //this is default integer value of main function
 }
@@ -122,5 +129,49 @@ void schedulemenu(void)  // we have created this function for print out main fun
 
     }
     while(choise!='6');
+}
+
+// this function is wrote for that read data from input file
+void readdata(void)
+{
+	
+	
+   FILE *fp;
+    char line[LINE_MAX];
+    int b,a,p;
+    int row =0;
+
+    if ((fp = fopen(inputfile,"r")) == NULL)
+    {
+        //return;
+        printf("Unfortunately, Input file could not found.\n");
+        printf("Please, try again carefully...\n");
+        exit(0);
+    }
+    else
+    {
+        //printf("  Burst Time ~ Arrival Time ~ Priority\n");
+
+        while (fgets(line, LINE_MAX, fp) != NULL)
+        {
+            row++;
+            sscanf(line,"%d:%d:%d\n",&b,&a,&p);
+            // push data to likend list
+            //data=insertBack(data,b,a,p,row);
+            // print to screen
+            printf("%u)    %u              %u             %u\n",row,b,a,p);
+            //data=insertBack(data,b,a,p,row);
+
+        }
+
+        fclose(fp);
+
+        printf("   Input file readed succesfully.\n");
+        printf("   Processing...\n\n");
+
+    }
+
+
+
 }
 
