@@ -6,20 +6,23 @@
 #define LINE_MAX 1024
 
 
-int main(){
+
+// this is main function 
+int main(){	
+
+	mainmenu(); // the called function brings menu to screen
 	
-	mainmenu();
-	
-	return 0;
+	return 0; //this is default integer value of main function
 }
 
-void mainmenu(void)
+
+void mainmenu(void) // we have created this function for print out main function
 {
     
     char choise=' ';
     do
     {   char flag=' ';
-        while(flag==' ')
+        while(flag==' ') // we have use flag here to control while loop
         {
         printf("   Main Menu\n\n");
         printf("   Please, Choose Your Option\n");
@@ -67,13 +70,13 @@ void mainmenu(void)
     while(choise!='5');
 }
 
-void schedulemenu(void)
+void schedulemenu(void)  // we have created this function for print out main function
 {
    
     char choise=' ';
     do
     {   char flag=' ';
-        while(flag==' ')
+        while(flag==' ') // we have use flag here to control while loop
         {
         printf("   Scheduling Method Menu\n\n");
         printf("1) First Come First Served Scheduling\n");
