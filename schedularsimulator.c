@@ -36,8 +36,13 @@ void mainmenu(void) // we have created this function for print out main function
         printf("   Main Menu\n\n");
         printf("   Please, Choose Your Option\n");
         printf("1) Scheduling Method\n");
-        printf("2) Preemptive Mode\n");
-        printf("3) Non-preemptive Mode\n");
+        if (PreemptiveMood=='A'){
+        	printf("2) Preemptive Mode (enable)\n" );        	
+        	printf("3) Non-preemptive Mode\n");
+		}else{
+			printf("2) Preemptive Mode\n" );
+        	printf("3) Non-preemptive Mode (enable)\n");
+		}
         printf("4) Show Result\n");
         printf("5) End Program\n");
         printf("Option >");
