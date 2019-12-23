@@ -12,11 +12,32 @@ char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 char *inputfile="input.txt";  //input source
 void readdata(void); // the function defined function reads data from the input source
 
+// there are three structure is defined for value manupýlation
+struct node
+{
+    int bursttime,arrivaltime,priority,pid;
+    struct node *next;
+};
+struct node * data;
+
+struct result
+{
+    int pid,waiting,responce;
+    struct result *next;
+};
+struct result * times;
+
+struct tempdata
+{
+    int pid,waiting;
+    struct tempdata *next;
+};
+struct tempdata *tempwaiting;
 
 // this is main function 
 int main(){	
 
-	readdata();
+	readdata(); // the function is called for read data from input file
 	mainmenu(); // the called function brings menu to screen
 	
 	
