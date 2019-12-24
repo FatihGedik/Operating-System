@@ -47,6 +47,8 @@ int sizeofdata (struct node *data);
 void display (struct node *data);
 void displaytimes (struct result *times);
 
+void firstcomefss(struct node *data,char preemptivemood);
+
 // this is main function 
 
 int main(){	
@@ -262,4 +264,19 @@ struct node * insertBack(struct node *data, int b,int a,int p,int row)
     return data;
 }
 
+void firstcomefss(struct node *data,char preemptivemood); //fisrt come first served scheduling method
+{
+	struct *tempdata ;
+	struct result *temptimes;
+	
+	tempdata= data;
+	temptimes=times;
+	
+	int i=1;
+    int SIZE = sizeofdata(tempdata);
+    
+    for(i=1; i<=SIZE; i++){
 
+}
+	
+}
