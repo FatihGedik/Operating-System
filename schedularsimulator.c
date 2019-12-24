@@ -13,7 +13,7 @@ char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
 // these definitions are defined for file manipulation
 char *inputfile="input.txt";  //input source
-void ReadData(void); // the function defined function reads data from the input source
+void ReadingData(void); // the function defined function reading data from the input source
 
 // there are three structure is defined for value manupýlation
 struct node
@@ -25,7 +25,7 @@ struct node * data;
 
 struct result
 {
-    int pid,waiting,responce;
+    int pid,waiting;
     struct result *next;
 };
 struct result * times;
@@ -48,8 +48,8 @@ void display (struct node *data);
 void displaytimes (struct result *times);
 
 // this is main function 
-int main(){	
 
+int main(){	
 	
 	Menu(); // the called function brings menu to screen
 	
@@ -67,21 +67,21 @@ void Menu(void) // we have created this function for print out main function
         while(flag==' ') // we have use flag here to control while loop
         {
         	
-        ReadData(); // the function is called for read data from input file
+        ReadingData(); // the function is called for reading data from input file
 
         printf("   Main Menu\n\n");
         printf("   Please, Choose Your Option\n");
-        printf("1) Scheduling Method\n");
-        if (PreemptiveMood=='A'){
-        	printf("2) Preemptive Mode (enable)\n" );        	
-        	printf("3) Non-preemptive Mode\n");
+        printf("1-) Scheduling Method\n");
+        if (PreemptiveMood=='A'){ 			//this function specifies which mode is active
+        	printf("2-) Preemptive Mode (enable)\n" );       	
+        	printf("3-) Non-preemptive Mode\n");
 		}else{
-			printf("2) Preemptive Mode\n" );
-        	printf("3) Non-preemptive Mode (enable)\n");
+			printf("2-) Preemptive Mode\n" );
+        	printf("3-) Non-preemptive Mode (enable)\n");
 		}
-        printf("4) Show Result\n");
-        printf("5) End Program\n");
-        printf("Option >");
+        printf("4-) Show Result\n");
+        printf("5-) End Program\n");
+        printf("Option =");
         
         scanf("%c", &choise);
         
@@ -126,16 +126,16 @@ void MethodMenu(void)  // we have created this function for print out main funct
     {   char flag=' ';
         while(flag==' ') // we have use flag here to control while loop
         {
-        ReadData(); // the function is called for read data from input file
+        ReadingData(); // the function is called for reading data from input file
 
         printf("   Scheduling Method Menu\n\n");
-        printf("1) First Come First Served Scheduling\n");
-        printf("2) Shortest Job First Scheduling\n");
-        printf("3) Priority Scheduling\n");
-        printf("4) Round Robin Scheduling\n");
-        printf("5) Back to Main Menu\n");
-        printf("6) End Program\n");
-        printf("Option >");
+        printf("1-) First Come First Served Scheduling\n");
+        printf("2-) Shortest Job First Scheduling\n");
+        printf("3-) Priority Scheduling\n");
+        printf("4-) Round Robin Scheduling\n");
+        printf("5-) Back to Main Menu\n");
+        printf("6-) End Program\n");
+        printf("Option =");
         
         scanf("%c", &choise);
         
@@ -143,19 +143,19 @@ void MethodMenu(void)  // we have created this function for print out main funct
         
         
         if(choise == '1'){
-        	printf("1) First Come First Served Scheduling\n");
+        	printf("1-) First Come First Served Scheduling\n");
             break;
 		}if(choise == '2'){
-			printf("2) Shortest Job First Scheduling\n");
+			printf("2-) Shortest Job First Scheduling\n");
             break;			
 		}if(choise == '3'){
-			printf("3) Priority Scheduling\n");
+			printf("3-) Priority Scheduling\n");
             break;			
 		}if(choise == '4'){
-			printf("4) Roui	nd Robin Scheduling\n");			
+			printf("4-) Round Robin Scheduling\n");			
             break;			
 		}if(choise == '5'){
-			printf("5) Back to Main Menu\n");
+			printf("5-) Back to Main Menu\n");
 			Menu(); 			
             break;			
 		}if(choise == '6'){			
@@ -174,8 +174,8 @@ void MethodMenu(void)  // we have created this function for print out main funct
     while(choise!='6');
 }
 
-// this function is wrote for that read data from input file
-void ReadData(void)
+// this function is wrote for that reading data from input file
+void ReadingData(void)
 {
 	
 	
@@ -199,7 +199,7 @@ void ReadData(void)
         {
             row++;
             sscanf(line,"%d:%d:%d\n",&b,&a,&p);
-            // push data to likend list
+            // push data to linked list
             data=insertBack(data,b,a,p,row);
             // print to screen
             printf("%u)    %u              %u             %u\n",row,b,a,p);
@@ -208,8 +208,8 @@ void ReadData(void)
 
         fclose(fp);
 
-        printf("   Input file readed succesfully.\n");
-        printf("   Processing...\n\n");
+        printf("   Input file readed succesfully.\n\n");
+       
 
     }
 
@@ -229,7 +229,7 @@ struct result * initializeresult(struct result * times)
     times=(struct result*)malloc(sizeof(struct result*));
     times->pid=0;
     times->waiting=0;
-    times->responce=0;
+    
 
     return times;
 }
