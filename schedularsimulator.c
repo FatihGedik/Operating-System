@@ -12,9 +12,10 @@ void MethodMenu(void);
 char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
 // these definitions are defined for file manipulation
-char *inputfile="input.txt";  //input source
+char *inputfile="input.txt";//input source
+char *outputfile= NULL;  
 void ReadingData(void); // the function defined function reading data from the input source
-
+void DataOutput(void); // the function defined function output data from the out source
 // there are three structure is defined for value manupılation
 struct node
 {
@@ -189,8 +190,8 @@ void ReadingData(void)
     if ((fp = fopen(inputfile,"r")) == NULL)
     {
         //return;
-        printf("Unfortunately, Input file could not found.\n");
-        printf("Please, try again carefully...\n");
+        printf("Input file could not found.\n");
+        printf("Please, try again...\n");
         exit(0);
     }
     else
@@ -217,6 +218,23 @@ void ReadingData(void)
 
 
 
+}
+
+void DataOutput(void){
+	
+	FILE *fp;
+	char line[LINE_MAX];
+	
+	 if ((fp = fopen(outputfile,"r")) == NULL)
+    {
+        //return;
+        printf("Input file could not found.\n");
+        printf("Please, try again...\n");
+        exit(0);
+    }
+    else
+    
+   
 }
 
 bool is_empty(struct node *header){
@@ -271,7 +289,7 @@ void display(struct node *header)
         printf("List is empty\n");
     }
 
-void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
+/*void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
 {
 
 	times=initializeresult(times);
@@ -292,6 +310,6 @@ void firstcomefss(struct node *header,char preemptivemood); //fisrt come first s
         temptimes->next->responce=temptimes->responce+tempdata->bursttime;
     
 
-}
+}*/
 	
-}
+
