@@ -233,6 +233,22 @@ void DataOutput(void){
         exit(0);
     }
     else
+    {
+
+         // print to screen line by line
+        while (fgets(line, LINE_MAX, fp) != NULL)
+        {
+            // print line
+            printf("%s",line);
+
+        }
+
+        fclose(fp);
+
+        printf("\n Output file readed succesfully.\n");
+        
+
+    }
     
    
 }
