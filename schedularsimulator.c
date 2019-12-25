@@ -18,36 +18,36 @@ void ReadingData(void); // the function defined function reading data from the i
 // there are three structure is defined for value manupýlation
 struct node
 {
-    int bursttime,arrivaltime,priority,pid;
+    int bursttime,arrivaltime,priority,Pno;
     struct node *next;
 };
-struct node * data;
+struct node * header;
 
 struct result
 {
-    int pid,waiting;
+    int Pno,waiting;
     struct result *next;
 };
 struct result * times;
 
 struct tempdata
 {
-    int pid,waiting;
+    int Pno,waiting;
     struct tempdata *next;
 };
 struct tempdata *tempwaiting;
 
 
-bool is_empty(struct node *data);
-struct result * initializeresult(struct result * times);
+bool is_empty(struct node *header);
+struct result * initializeresult(struct result * header);
 struct node * createNode(int b,int a,int p, int row);
-struct node * insertBack(struct node *data, int b,int a, int p,int row);
-struct node * deleteFront(struct node *data);
-int sizeofdata (struct node *data);
-void display (struct node *data);
+struct node * insertBack(struct node *header, int b,int a, int p,int row);
+struct node * deleteFront(struct node *header);
+int sizeofdata (struct node *header);
+void display (struct node *header);
 void displaytimes (struct result *times);
 
-void firstcomefss(struct node *data,char preemptivemood);
+void firstcomefss(struct node *header,char preemptivemood);
 
 // this is main function 
 
@@ -202,7 +202,7 @@ void ReadingData(void)
             row++;
             sscanf(line,"%d:%d:%d\n",&b,&a,&p);
             // push data to linked list
-            data=insertBack(data,b,a,p,row);
+            header=insertBack(header,b,a,p,row);
             // print to screen
             printf("%u)    %u              %u             %u\n",row,b,a,p);
 
@@ -219,17 +219,17 @@ void ReadingData(void)
 
 }
 
-bool isempty(struct node *data){
-    if(data==NULL)
-        return true;
+bool is_empty(struct node *header){
+    if(header==NULL)
+        return 1;
     else
-        return false;
+        return 0;
 }
 
 struct result * initializeresult(struct result * times)
 {
     times=(struct result*)malloc(sizeof(struct result*));
-    times->pid=0;
+    times->Pno=0;
     times->waiting=0;
     
 
@@ -243,39 +243,54 @@ struct node * createList(int b,int a,int p,int row)
     temp->bursttime=b;
     temp->arrivaltime=a;
     temp->priority=p;
-    temp->pid=row;
+    temp->Pno=row;
     temp->next=NULL;
     return temp;
 }
 
-struct node * insertBack(struct node *data, int b,int a,int p,int row)
+struct node * insertBack(struct node *header, int b,int a,int p,int row)
 {
     struct node * temp = createList(b,a,p,row);
     struct node * datatemp;
-    if (data == NULL)
+    if (header == NULL)
     {
-        data = temp;
-        return data;
+        header = temp;
+        return header;
     }
-    datatemp=data;
+    datatemp=header;
     while(datatemp->next != NULL)
         datatemp=datatemp->next;
     datatemp->next = temp;
-    return data;
+    return header;
 }
 
-void firstcomefss(struct node *data,char preemptivemood); //fisrt come first served scheduling method
+void display(struct node *header)
 {
+    int cnt=1;
+    if (header == NULL)
+        printf("List is empty\n");
+    }
+
+void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
+{
+
+	times=initializeresult(times);
 	struct *tempdata ;
 	struct result *temptimes;
 	
-	tempdata= data;
+	tempdata= header;
 	temptimes=times;
 	
 	int i=1;
     int SIZE = sizeofdata(tempdata);
     
     for(i=1; i<=SIZE; i++){
+    
+    	averagewaiting+=temptimes->waiting;
+    	
+    	temptimes->next=(struct result*)malloc(sizeof(struct result*));
+        temptimes->next->responce=temptimes->responce+tempdata->bursttime;
+    
 
 }
 	
