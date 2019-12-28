@@ -26,27 +26,28 @@ struct node * header;
 
 struct result
 {
-    int Pno,waiting;
+    int Pno,waiting,prebursttime;
     struct result *next;
 };
 struct result * times;
 
-struct tempdata
+struct headertemp
 {
     int Pno,waiting;
-    struct tempdata *next;
+    struct headertemp *next;
 };
-struct tempdata *tempwaiting;
+struct headertemp *tempwaiting;
 
 
-bool is_empty(struct node *header);
-struct result * initializeresult(struct result * header);
-struct node * createNode(int b,int a,int p, int row);
+int is_empty(struct node *header);
+
+struct node * createList(int b,int a,int p, int row);
 struct node * insertBack(struct node *header, int b,int a, int p,int row);
 struct node * deleteFront(struct node *header);
 int sizeofdata (struct node *header);
 void display (struct node *header);
-void displaytimes (struct result *times);
+void sortarrival(struct node *data);
+struct result * initializeresult(struct result * times);
 
 void firstcomefss(struct node *header,char preemptivemood);
 
@@ -196,7 +197,6 @@ void ReadingData(void)
     }
     else
     {
-        //printf("  Burst Time ~ Arrival Time ~ Priority\n");
 
         while (fgets(line, LINE_MAX, fp) != NULL)
         {
@@ -235,7 +235,7 @@ void DataOutput(void){
     else
     {
 
-         // print to screen line by line
+         // print to the screen
         while (fgets(line, LINE_MAX, fp) != NULL)
         {
             // print line
@@ -250,25 +250,16 @@ void DataOutput(void){
 
     }
     
-   
-}
+   }
 
-bool is_empty(struct node *header){
+int is_empty(struct node *header){
     if(header==NULL)
         return 1;
     else
         return 0;
 }
 
-struct result * initializeresult(struct result * times)
-{
-    times=(struct result*)malloc(sizeof(struct result*));
-    times->Pno=0;
-    times->waiting=0;
-    
 
-    return times;
-}
 
 struct node * createList(int b,int a,int p,int row)
 {
@@ -285,16 +276,16 @@ struct node * createList(int b,int a,int p,int row)
 struct node * insertBack(struct node *header, int b,int a,int p,int row)
 {
     struct node * temp = createList(b,a,p,row);
-    struct node * datatemp;
+    struct node * headertemp;
     if (header == NULL)
     {
         header = temp;
         return header;
     }
-    datatemp=header;
-    while(datatemp->next != NULL)
-        datatemp=datatemp->next;
-    datatemp->next = temp;
+    headertemp=header;
+    while(headertemp->next != NULL)
+        headertemp=headertemp->next;
+    headertemp->next = temp;
     return header;
 }
 
@@ -305,25 +296,34 @@ void display(struct node *header)
         printf("List is empty\n");
     }
 
+//the functioýn is wrote for initialize the result stack
+
+struct result * initializeresult(struct result * times)
+{
+    times=(struct result*)malloc(sizeof(struct result*));
+    times->Pno=0;
+    times->waiting=0;
+    times->prebursttime=0;
+
+    return times;
+}
+
 /*void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
 {
 
 	times=initializeresult(times);
-	struct *tempdata ;
+		
+	struct *headertemp ;
 	struct result *temptimes;
 	
-	tempdata= header;
-	temptimes=times;
+	headertemp= header;
+
 	
 	int i=1;
-    int SIZE = sizeofdata(tempdata);
+    int SIZE = sizeofdata(headertemp);
     
-    for(i=1; i<=SIZE; i++){
-    
-    	averagewaiting+=temptimes->waiting;
-    	
-    	temptimes->next=(struct result*)malloc(sizeof(struct result*));
-        temptimes->next->responce=temptimes->responce+tempdata->bursttime;
+   
+   
     
 
 }*/
