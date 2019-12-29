@@ -16,6 +16,8 @@ char *inputfile="input.txt";//input source
 char *outputfile= "output.txt";  
 void ReadingData(void); // the function defined function reading data from the input source
 void DataOutput(void); // the function defined function output data from the out source
+
+
 // there are three structure is defined for value manupýlation
 struct node
 {
@@ -46,7 +48,8 @@ struct node * insertBack(struct node *header, int b,int a, int p,int row);
 struct node * deleteFront(struct node *header);
 int sizeofdata (struct node *header);
 void display (struct node *header);
-void sortarrival(struct node *data);
+void sortarrival(struct node *header);
+void swap();
 struct result * initializeresult(struct result * times);
 
 void firstcomefss(struct node *header,char preemptivemood);
@@ -319,19 +322,38 @@ struct result * initializeresult(struct result * times)
 
     return times;
 }
+
+void swap(struct node * x, struct node * y){
+	
+	int temp_arrivalTime=x->arrivalTime;
+    x->arrivalTime=y->arrivalTime;
+    y->arrivalTime=temp_arrivalTime;
+	
+	
+	
+}
+
+	
+	
 // this function is written for sorting the arrival time
 void sortarrival(struct node *header)
 {
  int control=1;
     struct node *headertemp=header;
     struct node *tempSort
-    if (headertemp == NULL)
+    	if (headertemp == NULL)
         exit(0);
     
     while(control){
         control=0;
         headertemp=header;
-        
+        	 while (headertemp->next!=NULL) {
+            		if (headertemp->arrivalTime>headertemp->next->arrivalTime)
+            {
+                swap(headertemp,headertemp->next);
+                control=1;
+            }
+            headertemp=headertemp->next;
         
         }
         tempSort=headertemp;
