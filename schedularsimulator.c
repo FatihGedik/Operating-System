@@ -31,7 +31,7 @@ struct result
     int Pno,waiting,prebursttime;
     struct result *next;
 };
-struct result * times;
+struct result * temptimes;
 
 struct headertemp
 {
@@ -51,7 +51,8 @@ void display (struct node *header);
 
 void sortburst(struct node *header);
 void sortarrival(struct node *header);
-void swap();
+
+
 struct result * initializeresult(struct result * times);
 
 void firstcomefss(struct node *header,char preemptivemood);
@@ -263,8 +264,6 @@ void DataOutput(void){
         fclose(fp);
 
         printf("\n Output file readed succesfully.\n");
-        
-
     }
     
    }
@@ -275,8 +274,6 @@ int is_empty(struct node *header){
     else
         return 0;
 }
-
-
 
 struct node * createList(int b,int a,int p,int row)
 {
@@ -324,52 +321,13 @@ struct result * initializeresult(struct result * times)
 
     return times;
 }
-
-void swap(struct node * x, struct node * y){
-	
-	int temp_bursttime=x->bursttime;
-    x->bursttime=y->bursttime;
-    y->bursttime=temp_bursttime;
-	
-	int temp_arrivaltime=x->arrivaltime;
-    x->arrivaltime=y->arrivaltime;
-    y->arrivaltime=temp_arrivaltime;
-	
-	
-	
-}
-
-// this function is written for sorting the burst time
-void sortburst(struct node *header)
-{
-    int control=1;
-    struct node*headertemp=header;
-    struct node*tempSort;
-    if(headertemp==NULL)
-        exit(0);
-
-    while(control){
-        control=0;
-        headertemp=header;
-        while(headertemp->next!=NULL) {
-            if(headertemp->bursttime>headertemp->next->bursttime)
-            {
-                swap(headertemp,headertemp->next);
-                control=1;
-            }
-            headertemp=headertemp->next;
-        }
-        tempSort=headertemp;
-    }
-        header=tempSort;
-}	
 	
 // this function is written for sorting the arrival time
 void sortarrival(struct node *header)
 {
  int control=1;
     struct node *headertemp=header;
-    struct node *tempSort
+    struct node *tempSort;
     	if (headertemp == NULL)
         exit(0);
     
@@ -379,7 +337,11 @@ void sortarrival(struct node *header)
         	 while (headertemp->next!=NULL) {
             		if (headertemp->arrivaltime>headertemp->next->arrivaltime)
             {
-                swap(headertemp,headertemp->next);
+                
+                int temp_arrivaltime=headertemp->arrivaltime;
+   				headertemp->arrivaltime=headertemp->next->arrivaltime;
+    			headertemp->next->arrivaltime=temp_arrivaltime;
+	
                 control=1;
             }
             headertemp=headertemp->next;
@@ -389,17 +351,38 @@ void sortarrival(struct node *header)
     }
         header=tempSort;    
 }
-        
-        
-/*void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
+           
+void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
 {
+		sortarrival(header);
+    	times=initializeresult(times);
 
+    	struct node *headertemp;
+    	struct result *temptimes;
+    	double avgwaiting=0;
 
-    
+    	headertemp=header;
+    	temptimes=times;
+   		
+   		int i=1;
+    	int SIZE = sizeOfLL(headertemp);
+   	
    
-   
     
 
-}*/
-	
+}
+
+int sizeofdata(struct node *data)
+{
+    struct node *temp=header;
+    int line=0;
+    if(temp!=NULL)
+        while(temp!=NULL){
+            temp=temp->next;
+            line++;
+        }
+    free(temp);
+    return line;
+
+}	
 
