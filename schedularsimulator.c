@@ -13,7 +13,7 @@ char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
 
 // these definitions are defined for file manipulation
 char *inputfile="input.txt";//input source
-char *outputfile= NULL;  
+char *outputfile= "output.txt";  
 void ReadingData(void); // the function defined function reading data from the input source
 void DataOutput(void); // the function defined function output data from the out source
 // there are three structure is defined for value manupýlation
@@ -108,7 +108,26 @@ void Menu(void) // we have created this function for print out main function
             sleep(2);
             break;			
 		}if(choise == '4'){
+			
 			printf("4) The Results Are Showing Result\n");
+			DataOutput();
+			printf("press 5 To back main menu\n");
+			
+			int key;
+			
+			do{	
+				
+				scanf("%d", &key);
+				if(key == 5){
+				
+					Menu();			
+            			break;	
+				}
+			}
+    		while(choise!='5');
+				
+		
+
 			break;			
 		}if(choise == '5'){			
             break;			
@@ -181,9 +200,7 @@ void MethodMenu(void)  // we have created this function for print out main funct
 // this function is wrote for that reading data from input file
 void ReadingData(void)
 {
-	
-	
-   FILE *fp;
+    FILE *fp;
     char line[LINE_MAX];
     int b,a,p;
     int row =0;
@@ -212,12 +229,7 @@ void ReadingData(void)
         fclose(fp);
 
         printf("   Input file readed succesfully.\n\n");
-       
-
-    }
-
-
-
+        }
 }
 
 void DataOutput(void){
@@ -228,7 +240,7 @@ void DataOutput(void){
 	 if ((fp = fopen(outputfile,"r")) == NULL)
     {
         //return;
-        printf("Input file could not found.\n");
+        printf("Output file could not found.\n");
         printf("Please, try again...\n");
         exit(0);
     }
@@ -296,7 +308,7 @@ void display(struct node *header)
         printf("List is empty\n");
     }
 
-//the functioýn is wrote for initialize the result stack
+//the function is wrote for initialize the result stack
 
 struct result * initializeresult(struct result * times)
 {
@@ -307,20 +319,31 @@ struct result * initializeresult(struct result * times)
 
     return times;
 }
-
+// this function is written for sorting the arrival time
+void sortarrival(struct node *header)
+{
+ int control=1;
+    struct node *headertemp=header;
+    struct node *tempSort
+    if (headertemp == NULL)
+        exit(0);
+    
+    while(control){
+        control=0;
+        headertemp=header;
+        
+        
+        }
+        tempSort=headertemp;
+    }
+        header=tempSort;    
+}
+        
+        
 /*void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
 {
 
-	times=initializeresult(times);
-		
-	struct *headertemp ;
-	struct result *temptimes;
-	
-	headertemp= header;
 
-	
-	int i=1;
-    int SIZE = sizeofdata(headertemp);
     
    
    
