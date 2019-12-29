@@ -48,6 +48,8 @@ struct node * insertBack(struct node *header, int b,int a, int p,int row);
 struct node * deleteFront(struct node *header);
 int sizeofdata (struct node *header);
 void display (struct node *header);
+
+void sortburst(struct node *header);
 void sortarrival(struct node *header);
 void swap();
 struct result * initializeresult(struct result * times);
@@ -325,15 +327,42 @@ struct result * initializeresult(struct result * times)
 
 void swap(struct node * x, struct node * y){
 	
-	int temp_arrivalTime=x->arrivalTime;
-    x->arrivalTime=y->arrivalTime;
-    y->arrivalTime=temp_arrivalTime;
+	int temp_bursttime=x->bursttime;
+    x->bursttime=y->bursttime;
+    y->bursttime=temp_bursttime;
+	
+	int temp_arrivaltime=x->arrivaltime;
+    x->arrivaltime=y->arrivaltime;
+    y->arrivaltime=temp_arrivaltime;
 	
 	
 	
 }
 
-	
+// this function is written for sorting the burst time
+void sortburst(struct node *header)
+{
+    int control=1;
+    struct node*headertemp=header;
+    struct node*tempSort;
+    if(headertemp==NULL)
+        exit(0);
+
+    while(control){
+        control=0;
+        headertemp=header;
+        while(headertemp->next!=NULL) {
+            if(headertemp->bursttime>headertemp->next->bursttime)
+            {
+                swap(headertemp,headertemp->next);
+                control=1;
+            }
+            headertemp=headertemp->next;
+        }
+        tempSort=headertemp;
+    }
+        header=tempSort;
+}	
 	
 // this function is written for sorting the arrival time
 void sortarrival(struct node *header)
@@ -348,7 +377,7 @@ void sortarrival(struct node *header)
         control=0;
         headertemp=header;
         	 while (headertemp->next!=NULL) {
-            		if (headertemp->arrivalTime>headertemp->next->arrivalTime)
+            		if (headertemp->arrivaltime>headertemp->next->arrivaltime)
             {
                 swap(headertemp,headertemp->next);
                 control=1;
