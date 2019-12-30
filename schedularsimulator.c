@@ -7,10 +7,8 @@
 
 void Menu(void);
 void MethodMenu(void);
-
 // we have defined variable below
 char PreemptiveMood='P'; // Preemptive Mod variable that keep A or P
-
 // these definitions are defined for file manipulation
 char *inputfile="input.txt";//input source
 char *outputfile= "output.txt";  
@@ -31,7 +29,7 @@ struct result
     int Pno,waiting,prebursttime;
     struct result *next;
 };
-struct result * temptimes;
+struct result * times;
 
 struct headertemp
 {
@@ -39,35 +37,26 @@ struct headertemp
     struct headertemp *next;
 };
 struct headertemp *tempwaiting;
-
+struct result * initializeresult(struct result * times);
 
 int is_empty(struct node *header);
 
 struct node * createList(int b,int a,int p, int row);
 struct node * insertBack(struct node *header, int b,int a, int p,int row);
-struct node * deleteFront(struct node *header);
+
 int sizeofdata (struct node *header);
 void display (struct node *header);
-
 void sortburst(struct node *header);
 void sortarrival(struct node *header);
-
-
-struct result * initializeresult(struct result * times);
-
-void firstcomefss(struct node *header,char preemptivemood);
-
+void firstcomefss(struct node *header);
 // this is main function 
+
 
 int main(){	
 	
-	Menu(); // the called function brings menu to screen
-	
-	
-	
+	Menu(); // the called function brings menu to screen	
 	return 0; //this is default integer value of main function
 }
-
 
 void Menu(void) // we have created this function for print out main function
 {
@@ -75,8 +64,7 @@ void Menu(void) // we have created this function for print out main function
     do
     {   char flag=' ';
         while(flag==' ') // we have use flag here to control while loop
-        {
-        	
+        {        	
         ReadingData(); // the function is called for reading data from input file
 
         printf("   Main Menu\n\n");
@@ -92,12 +80,8 @@ void Menu(void) // we have created this function for print out main function
         printf("4-) Show Result\n");
         printf("5-) End Program\n");
         printf("Option =");
-        
         scanf("%c", &choise);
-        
-        system("cls");
-        
-        
+        system("cls");                
         if(choise == '1'){        	
 			MethodMenu();        	
             break;
@@ -113,27 +97,19 @@ void Menu(void) // we have created this function for print out main function
             printf(" Non-preemptive Mode Scheduling can be simulate. \n");
             sleep(2);
             break;			
-		}if(choise == '4'){
-			
+		}if(choise == '4'){			
 			printf("4) The Results Are Showing Result\n");
 			DataOutput();
-			printf("press 5 To back main menu\n");
-			
+			printf("press 5 To back main menu\n");			
 			int key;
-			
-			do{	
-				
+			do{					
 				scanf("%d", &key);
-				if(key == 5){
-				
+				if(key == 5){				
 					Menu();			
             			break;	
 				}
 			}
     		while(choise!='5');
-				
-		
-
 			break;			
 		}if(choise == '5'){			
             break;			
@@ -156,7 +132,6 @@ void MethodMenu(void)  // we have created this function for print out main funct
         while(flag==' ') // we have use flag here to control while loop
         {
         ReadingData(); // the function is called for reading data from input file
-
         printf("   Scheduling Method Menu\n\n");
         printf("1-) First Come First Served Scheduling\n");
         printf("2-) Shortest Job First Scheduling\n");
@@ -164,15 +139,14 @@ void MethodMenu(void)  // we have created this function for print out main funct
         printf("4-) Round Robin Scheduling\n");
         printf("5-) Back to Main Menu\n");
         printf("6-) End Program\n");
-        printf("Option =");
-        
-        scanf("%c", &choise);
-        
-        system("cls");
-        
+        printf("Option =");        
+        scanf("%c", &choise);        
+        system("cls");        
         
         if(choise == '1'){
         	printf("1-) First Come First Served Scheduling\n");
+        	firstcomefss(header);
+        	sleep(5);
             break;
 		}if(choise == '2'){
 			printf("2-) Shortest Job First Scheduling\n");
@@ -193,12 +167,9 @@ void MethodMenu(void)  // we have created this function for print out main funct
 		}else{
             
             break;
-		}
-		
+		}		
         scanf("%c", &flag);
-
         }
-
     }
     while(choise!='6');
 }
@@ -220,7 +191,6 @@ void ReadingData(void)
     }
     else
     {
-
         while (fgets(line, LINE_MAX, fp) != NULL)
         {
             row++;
@@ -229,13 +199,10 @@ void ReadingData(void)
             header=insertBack(header,b,a,p,row);
             // print to screen
             printf("%u)    %u              %u             %u\n",row,b,a,p);
-
         }
-
         fclose(fp);
-
         printf("   Input file readed succesfully.\n\n");
-        }
+    }
 }
 
 void DataOutput(void){
@@ -251,21 +218,15 @@ void DataOutput(void){
         exit(0);
     }
     else
-    {
-
-         // print to the screen
+    {         // print to the screen
         while (fgets(line, LINE_MAX, fp) != NULL)
         {
             // print line
             printf("%s",line);
-
         }
-
         fclose(fp);
-
         printf("\n Output file readed succesfully.\n");
-    }
-    
+    }    
    }
 
 int is_empty(struct node *header){
@@ -303,13 +264,6 @@ struct node * insertBack(struct node *header, int b,int a,int p,int row)
     return header;
 }
 
-void display(struct node *header)
-{
-    int cnt=1;
-    if (header == NULL)
-        printf("List is empty\n");
-    }
-
 //the function is wrote for initialize the result stack
 
 struct result * initializeresult(struct result * times)
@@ -318,7 +272,6 @@ struct result * initializeresult(struct result * times)
     times->Pno=0;
     times->waiting=0;
     times->prebursttime=0;
-
     return times;
 }
 	
@@ -335,44 +288,72 @@ void sortarrival(struct node *header)
         control=0;
         headertemp=header;
         	 while (headertemp->next!=NULL) {
-            		if (headertemp->arrivaltime>headertemp->next->arrivaltime)
-            {
+        	 	
+            		if (headertemp->arrivaltime>headertemp->next->arrivaltime){
                 
-                int temp_arrivaltime=headertemp->arrivaltime;
-   				headertemp->arrivaltime=headertemp->next->arrivaltime;
-    			headertemp->next->arrivaltime=temp_arrivaltime;
+                			int temp_arrivaltime=headertemp->arrivaltime;
+   							headertemp->arrivaltime=headertemp->next->arrivaltime;
+    						headertemp->next->arrivaltime=temp_arrivaltime;
 	
-                control=1;
-            }
-            headertemp=headertemp->next;
+                			control=1;
+            		}
+            		headertemp=headertemp->next;
         
-        }
-        tempSort=headertemp;
-    }
+        	}
+        	tempSort=headertemp;
+    	}
         header=tempSort;    
 }
            
-void firstcomefss(struct node *header,char preemptivemood); //fisrt come first served scheduling method
-{
-		sortarrival(header);
-    	times=initializeresult(times);
+void firstcomefss(struct node *header) //fisrt come first served scheduling method
+{    
 
-    	struct node *headertemp;
-    	struct result *temptimes;
-    	double avgwaiting=0;
+	sortarrival(header);
+    times=initializeresult(times);
 
-    	headertemp=header;
-    	temptimes=times;
-   		
-   		int i=1;
-    	int SIZE = sizeOfLL(headertemp);
-   	
-   
-    
+    struct node *temp;
+    struct result *temptimes;
+    double avgwaiting=0;
+
+    temp=header;
+    temptimes=times;
+
+    int i=1;
+    int SIZE = sizeofdata(temp);
+
+    FILE *fp;
+    fp = fopen(outputfile,"a");
+    fprintf(fp,"===========================================\n");
+    fprintf(fp,"Scheduling Method: First Come First Served\n");
+    fprintf(fp,"Process Waiting Times:\n");
+    printf("\n===========================================\n");
+    printf("Scheduling Method: First Come First Served\n");
+    printf("Process Waiting Times:\n");
+
+   for(i=1; i<=SIZE; i++)
+    {
+
+        avgwaiting+=temptimes->waiting-temp->arrivaltime;
+        temptimes->Pno=temp->Pno;
+        fprintf(fp,"P%d: %d ms\n",(temptimes->Pno),avgwaiting);
+        printf("P%d: %d ms\n",(temptimes->Pno),(temptimes->waiting));
+        temptimes->waiting+=temp->bursttime;
+        temp=temp->next;
+     
+    }
+
+    avgwaiting=avgwaiting/SIZE;
+    fprintf(fp,"Average Waiting Time: %0.2f ms\n",avgwaiting);
+    fprintf(fp,"===========================================\n");
+    fclose(fp);
+    printf("Average Waiting Time: %0.2f ms\n",avgwaiting);
+	printf("\n");
+    printf("Simulation result saved to ' %s ' file \n",outputfile);
+	printf("\n\n");  
 
 }
 
-int sizeofdata(struct node *data)
+int sizeofdata(struct node *header)
 {
     struct node *temp=header;
     int line=0;
@@ -384,5 +365,4 @@ int sizeofdata(struct node *data)
     free(temp);
     return line;
 
-}	
-
+}
